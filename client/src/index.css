@@ -1,0 +1,472 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 14px;
+  }
+  @media (min-width: 640px) {
+    html {
+      font-size: 15px;
+    }
+  }
+  body {
+    background: linear-gradient(135deg, #1C050B 0%, #3B0716 35%, #580A20 65%, #78350F 90%, #92400E 100%);
+    background-attachment: fixed;
+    color: #1C1917;
+    font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Tabular number alignment for financial/quantity tables */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Burgundy & Golden Gradient Glossy Shine Effect */
+.bg-glossy-burgundy-gold {
+  background: linear-gradient(135deg, #4C0519 0%, #881337 40%, #9F1239 65%, #B45309 85%, #D97706 100%);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px 1px rgba(254, 243, 199, 0.35), 0 4px 14px -2px rgba(136, 19, 55, 0.25);
+}
+
+.bg-glossy-burgundy-gold::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), rgba(254, 243, 199, 0.3), transparent);
+  transform: rotate(25deg);
+  transition: left 0.75s ease-in-out;
+  pointer-events: none;
+}
+
+.bg-glossy-burgundy-gold:hover::after {
+  left: 130%;
+}
+
+.btn-glossy-burgundy {
+  background: linear-gradient(135deg, #701A31 0%, #881337 50%, #9F1239 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 4px rgba(136, 19, 55, 0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-glossy-burgundy:hover {
+  background: linear-gradient(135deg, #881337 0%, #9F1239 50%, #B45309 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 4px 12px rgba(136, 19, 55, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-glossy-gold {
+  background: linear-gradient(135deg, #B45309 0%, #D97706 50%, #F59E0B 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(254, 243, 199, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 2px 4px rgba(180, 83, 9, 0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-glossy-gold:hover {
+  background: linear-gradient(135deg, #D97706 0%, #F59E0B 50%, #B45309 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 4px 12px rgba(217, 119, 6, 0.35);
+  transform: translateY(-1px);
+}
+
+.text-glossy-gold {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Neat Table Typography & Structure with Burgundy & Gold Glossy Header */
+.neat-table-container {
+  border-radius: 1rem;
+  background: #FFFFFF;
+  border: 1px solid rgba(217, 119, 6, 0.25);
+  box-shadow: 0 4px 15px -3px rgba(136, 19, 55, 0.08), 0 1px 3px rgba(28, 25, 23, 0.04);
+  padding: 0.35rem;
+}
+
+.neat-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.375rem; /* Row gap for floating pop-up effect */
+}
+
+.neat-table thead tr {
+  background: linear-gradient(135deg, #1C050B 0%, #3B0716 40%, #580A20 75%, #3B0716 100%);
+  box-shadow: 0 4px 14px rgba(28, 5, 11, 0.25), inset 0 1px 0 rgba(254, 243, 199, 0.3);
+}
+
+.neat-table th {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.725rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #FDE68A !important; /* Champagne Gold Header Text */
+  padding: 0.85rem 1rem;
+  border-bottom: 2px solid rgba(245, 158, 11, 0.5);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.neat-table th:first-child {
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+}
+
+.neat-table th:last-child {
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+
+/* Page-Specific Unique Table Header Variations */
+.neat-table-stock thead tr {
+  background: linear-gradient(135deg, #1C050B 0%, #3B0716 50%, #450A1B 100%);
+  border-bottom: 2px solid #F59E0B;
+}
+
+.neat-table-orders thead tr {
+  background: linear-gradient(135deg, #2E050E 0%, #4C0519 50%, #700B26 100%);
+  border-bottom: 2px solid #D97706;
+}
+
+.neat-table-customers thead tr {
+  background: linear-gradient(135deg, #38040E 0%, #50071C 50%, #28030B 100%);
+  border-bottom: 2px solid #FBBF24;
+}
+
+.neat-table-stitching thead tr {
+  background: linear-gradient(135deg, #25040A 0%, #3D0814 50%, #580A20 100%);
+  border-bottom: 2px solid #F59E0B;
+}
+
+.neat-table-products thead tr {
+  background: linear-gradient(135deg, #1F040A 0%, #420A18 50%, #26050C 100%);
+  border-bottom: 2px solid #EAB308;
+}
+
+.neat-table-admin thead tr {
+  background: linear-gradient(135deg, #160207 0%, #2F0410 50%, #480618 100%);
+  border-bottom: 2px solid #F59E0B;
+}
+
+/* Interactive Pop-Up Table Row Effect */
+.table-row-popup {
+  background-color: #FFFFFF;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease;
+  border-top: 1px solid #E7E5E4;
+  border-bottom: 1px solid #E7E5E4;
+}
+
+.neat-table tbody tr:nth-child(even) {
+  background-color: #FAFAF8;
+}
+
+.table-row-popup td {
+  padding: 1rem 1.15rem;
+  vertical-align: middle;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #1C1917;
+  white-space: nowrap;
+}
+
+/* Allow title cells to wrap gracefully if necessary, but keep badge & action cells compact */
+.table-row-popup td.cell-wrap {
+  white-space: normal;
+}
+
+.table-row-popup td:first-child {
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  border-left: 1px solid #E7E5E4;
+}
+
+.table-row-popup td:last-child {
+  border-top-right-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+  border-right: 1px solid #E7E5E4;
+}
+
+.table-row-popup:hover {
+  transform: translateY(-3px) scale(1.004);
+  box-shadow: 0 10px 25px -4px rgba(136, 19, 55, 0.14), 0 4px 10px -2px rgba(217, 119, 6, 0.1);
+  z-index: 25;
+  position: relative;
+  background-color: #FFFDF9 !important; /* Warm ivory-gold hover tint */
+}
+
+.table-row-popup:hover td:first-child {
+  border-left-color: rgba(217, 119, 6, 0.5);
+}
+
+.table-row-popup:hover td:last-child {
+  border-right-color: rgba(217, 119, 6, 0.5);
+}
+
+.table-row-popup:hover td {
+  border-top-color: rgba(217, 119, 6, 0.5);
+  border-bottom-color: rgba(217, 119, 6, 0.5);
+}
+
+/* Mobile Optimized Table Alignment & Compact Touch Padding */
+@media (max-width: 640px) {
+  .neat-table th {
+    padding: 0.65rem 0.5rem;
+    font-size: 0.675rem;
+    letter-spacing: 0.04em;
+  }
+  .table-row-popup td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Professional Enterprise Card Styling */
+.pop-card, .pro-card {
+  background: #ffffff;
+  border: 1px solid #E7E5E4;
+  box-shadow: 0 1px 3px 0 rgba(28, 25, 23, 0.04), 0 1px 2px -1px rgba(28, 25, 23, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pop-card:hover, .pro-card:hover {
+  border-color: rgba(217, 119, 6, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -3px rgba(136, 19, 55, 0.12), 0 3px 6px -1px rgba(217, 119, 6, 0.08);
+}
+
+/* Professional Enterprise Button Styling Fallbacks */
+.btn-pop, .btn-glossy {
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-pop:active, .btn-glossy:active {
+  transform: translateY(1px);
+}
+
+.btn-pop-coral, .btn-pop-orchid, .btn-pop-aero, .btn-pop-silk, .btn-glossy-coral, .btn-glossy-sparkle, .btn-glossy-sandy {
+  background-color: #881337;
+  color: #ffffff;
+}
+
+.btn-pop-coral:hover, .btn-pop-orchid:hover, .btn-pop-aero:hover, .btn-pop-silk:hover, .btn-glossy-coral:hover, .btn-glossy-sparkle:hover, .btn-glossy-sandy:hover {
+  background-color: #9F1239;
+}
+
+/* Modern Soft Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF9F6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E7E5E4;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D6D3D1;
+}
+
+/* 3D Glossy Shimmer KPI Card Animation */
+.kpi-card-glow {
+  background: #FFFFFF;
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kpi-card-glow::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(254, 243, 199, 0.5), rgba(255, 255, 255, 0.8), transparent);
+  transform: rotate(30deg);
+  transition: left 0.65s ease-in-out;
+  pointer-events: none;
+}
+
+.kpi-card-glow:hover {
+  background: #FFFFFF;
+  transform: translateY(-6px) scale(1.02);
+  border-color: rgba(245, 158, 11, 0.75);
+  box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.2), 0 8px 18px -3px rgba(217, 119, 6, 0.2);
+}
+
+.kpi-card-glow:hover::before {
+  left: 140%;
+}
+
+/* 1. Product Catalog - 3D Boutique Fashion Card Animation */
+.product-card-3d {
+  background: #FFFFFF;
+  border: 1px solid #E7E5E4;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+  position: relative;
+}
+
+.product-card-3d:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(245, 158, 11, 0.6);
+  box-shadow: 0 22px 45px -10px rgba(136, 19, 55, 0.22), 0 10px 20px -5px rgba(217, 119, 6, 0.18);
+}
+
+/* 2. Stitching Workshop - Ticket Pulse Card Animation */
+.stitching-card-workshop {
+  background: #FFFFFF;
+  border: 1px solid #E7E5E4;
+  border-left: 4px solid #D97706;
+  border-radius: 1rem;
+  padding: 1rem;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  position: relative;
+}
+
+.stitching-card-workshop:hover {
+  transform: translateY(-5px) translateX(2px);
+  border-color: rgba(217, 119, 6, 0.7);
+  border-left-color: #F59E0B;
+  box-shadow: 0 14px 30px -4px rgba(136, 19, 55, 0.15), 0 4px 12px -2px rgba(245, 158, 11, 0.12);
+}
+
+/* 3. Customer CRM - Gold Foil Luxury Pass Card Animation */
+.customer-card-luxury {
+  background: #FFFFFF;
+  border: 1px solid #E7E5E4;
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.customer-card-luxury::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #881337, #D97706, #F59E0B);
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.customer-card-luxury:hover {
+  transform: translateY(-6px) scale(1.015);
+  border-color: rgba(245, 158, 11, 0.55);
+  box-shadow: 0 16px 35px -6px rgba(136, 19, 55, 0.16), 0 6px 14px -2px rgba(217, 119, 6, 0.12);
+}
+
+.customer-card-luxury:hover::before {
+  opacity: 1;
+}
+
+/* 4. Admin Control - Cyber Telemetry Card Animation */
+.admin-card-cyber {
+  background: #FFFFFF;
+  border: 1px solid #E7E5E4;
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.admin-card-cyber:hover {
+  transform: translateY(-5px);
+  border-color: rgba(217, 119, 6, 0.6);
+  box-shadow: 0 15px 32px -5px rgba(136, 19, 55, 0.15), 0 0 18px rgba(245, 158, 11, 0.2);
+}
+
+/* 5. Analytics & Chart Glass Card Animation */
+.chart-card-glass {
+  background: #FFFFFF;
+  border: 1px solid #E7E5E4;
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.chart-card-glass:hover {
+  transform: translateY(-4px);
+  border-color: rgba(217, 119, 6, 0.45);
+  box-shadow: 0 16px 35px -5px rgba(136, 19, 55, 0.12), 0 6px 12px -2px rgba(217, 119, 6, 0.1);
+}
+
+/* 6. Stock Management - Atelier Inventory Vault Card Animation */
+.stock-vault-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 14px -2px rgba(28, 25, 23, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stock-vault-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(254, 243, 199, 0.5), rgba(255, 255, 255, 0.8), transparent);
+  transform: rotate(30deg);
+  transition: left 0.65s ease-in-out;
+  pointer-events: none;
+}
+
+.stock-vault-card:hover {
+  transform: translateY(-6px) scale(1.025);
+  border-color: rgba(245, 158, 11, 0.7);
+  box-shadow: 0 20px 40px -6px rgba(136, 19, 55, 0.18), 0 8px 16px -3px rgba(217, 119, 6, 0.15);
+}
+
+.stock-vault-card:hover::before {
+  left: 140%;
+}
+
+/* Print styling for Tailor Measurement Sheet */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-sheet, #printable-sheet * {
+    visibility: visible;
+  }
+  #printable-sheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
+
