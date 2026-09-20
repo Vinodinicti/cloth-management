@@ -150,7 +150,7 @@ export default function DashboardPage({
     <div className="space-y-6">
       {/* Glossy Hero Page Header */}
       <PageHeader
-        title="Atelier Dashboard & Intelligence"
+        title="Boutique Dashboard & Intelligence"
         subtitle={`Studio Operations Telemetry: You have ${kpis.pendingStitching} pending tailoring jobs and ${kpis.lowStockItems} low stock warnings active today.`}
         icon={Activity}
         badgeText="Live Intelligence"

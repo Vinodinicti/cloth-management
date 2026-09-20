@@ -11,7 +11,7 @@ export default function RoleAuthModal({ isOpen, onClose, targetRole, onAuthentic
     {
       id: 'Administrator (Owner)',
       name: 'Velavan Soundararajan',
-      title: 'Atelier Owner / SuperAdmin',
+      title: 'Boutique Owner / SuperAdmin',
       pass: 'admin123',
       badge: 'SuperAdmin',
       avatar: 'VS'

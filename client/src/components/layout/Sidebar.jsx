@@ -73,7 +73,7 @@ export default function Sidebar({
                     PRO
                   </span>
                 </div>
-                <p className="text-xs text-amber-200/70 font-medium">Atelier Management</p>
+                <p className="text-xs text-amber-200/70 font-medium">Boutique & Tailoring</p>
               </div>
             </div>
 
@@ -156,7 +156,7 @@ export default function Sidebar({
               <Store className="w-4 h-4" />
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="text-xs font-bold text-amber-100 truncate">Royal Fabric Atelier</h4>
+              <h4 className="text-xs font-bold text-amber-100 truncate">Royal Fabric Boutique</h4>
               <p className="text-[11px] text-amber-200/60 truncate">Flagship Store</p>
             </div>
           </div>

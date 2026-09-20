@@ -138,7 +138,7 @@ export default function AdminPage({ activeRole, onOpenRoleAuth }) {
                 <Sliders className="w-4 h-4 text-stone-400" />
                 <span>Store Identity:</span>
               </div>
-              <strong className="text-stone-900 font-semibold text-sm">ThreadCraft Couture & Atelier</strong>
+              <strong className="text-stone-900 font-semibold text-sm">ThreadCraft Couture & Boutique</strong>
             </div>
 
             <div className="p-3.5 rounded-xl bg-stone-50 flex justify-between items-center border border-stone-200/60">
@@ -213,7 +213,7 @@ export default function AdminPage({ activeRole, onOpenRoleAuth }) {
             <thead>
               <tr>
                 <th className="text-left w-1/4">System & Studio Module</th>
-                <th className="text-center">SuperAdmin (Atelier Owner)</th>
+                <th className="text-center">SuperAdmin (Boutique Owner)</th>
                 <th className="text-center">Store Manager Role</th>
                 <th className="text-center">Master Tailor Role</th>
                 <th className="text-center">RBAC Policy Scope</th>
