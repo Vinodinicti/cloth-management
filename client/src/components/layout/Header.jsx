@@ -39,24 +39,29 @@ export default function Header({
 
   return (
     <header className="sticky top-0 z-30 h-16 bg-[#180A0E]/85 backdrop-blur-md border-b border-amber-400/20 px-4 lg:px-8 flex items-center justify-between shadow-md text-stone-100">
-      {/* Left Search & Mobile Toggle */}
-      <div className="flex items-center gap-3 flex-1 max-w-lg">
+      {/* Left Mobile Toggle & Boutique Atelier Telemetry Badge */}
+      <div className="flex items-center gap-3 flex-1">
         <button
           onClick={() => setMobileOpen(true)}
-          className="lg:hidden p-2 rounded-xl bg-white border border-stone-200 text-stone-700 hover:bg-stone-50 transition-colors"
+          className="lg:hidden p-2 rounded-xl bg-amber-400/20 border border-amber-400/40 text-amber-300 hover:bg-amber-400/30 transition-colors"
         >
           <Menu className="w-5 h-5" />
         </button>
 
-        <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
-          <input
-            type="text"
-            placeholder="Search catalog, stock, customers, or stitching orders..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-stone-200/80 focus:outline-none focus:ring-2 focus:ring-rose-900/20 focus:border-rose-900 text-sm text-stone-900 placeholder:text-stone-400 transition-all"
-          />
+        <div className="hidden sm:flex items-center gap-3 bg-black/40 backdrop-blur-md border border-amber-400/35 px-4 py-1.5 rounded-full shadow-inner text-xs font-bold">
+          <div className="flex items-center gap-1.5 text-amber-300">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
+            </span>
+            <span className="font-extrabold tracking-wide uppercase text-[11px] text-amber-300 font-mono">Atelier Studio Live</span>
+          </div>
+          <span className="text-amber-400/40">|</span>
+          <div className="flex items-center gap-2 text-stone-200 text-[11px] font-mono">
+            <span className="flex items-center gap-1.5 text-amber-200"><Scissors className="w-3.5 h-3.5 text-amber-400" /> Master Tailors Workshop</span>
+            <span className="text-amber-400/40">•</span>
+            <span className="text-stone-300">Fabric Vault Active</span>
+          </div>
         </div>
       </div>
 
