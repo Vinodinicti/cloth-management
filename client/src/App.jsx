@@ -21,6 +21,17 @@ import StitchingModal from './components/modals/StitchingModal';
 import OrderModal from './components/modals/OrderModal';
 import RoleAuthModal from './components/modals/RoleAuthModal';
 
+// Sample Data Fallbacks
+import {
+  defaultProducts,
+  defaultStock,
+  defaultCustomers,
+  defaultTailors,
+  defaultStitchingOrders,
+  defaultOrders,
+  defaultStats
+} from './data/sampleData';
+
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -36,14 +47,14 @@ export default function App() {
     document.body.scrollTop = 0;
   }, [activeTab]);
 
-  // Data Stores
-  const [stats, setStats] = useState(null);
-  const [products, setProducts] = useState([]);
-  const [stock, setStock] = useState([]);
-  const [customers, setCustomers] = useState([]);
-  const [stitchingOrders, setStitchingOrders] = useState([]);
-  const [orders, setOrders] = useState([]);
-  const [tailors, setTailors] = useState([]);
+  // Data Stores (Initialized with rich sample data for Vercel static & offline deployment)
+  const [stats, setStats] = useState(defaultStats);
+  const [products, setProducts] = useState(defaultProducts);
+  const [stock, setStock] = useState(defaultStock);
+  const [customers, setCustomers] = useState(defaultCustomers);
+  const [stitchingOrders, setStitchingOrders] = useState(defaultStitchingOrders);
+  const [orders, setOrders] = useState(defaultOrders);
+  const [tailors, setTailors] = useState(defaultTailors);
 
   // Modal Control States
   const [quickActionOpen, setQuickActionOpen] = useState(false);
