@@ -122,125 +122,189 @@ export default function App() {
   };
 
   // Stock Handlers
-  const handleSaveStock = async (stockItem) => {
+  const handleSaveStock = (stockItem) => {
     if (editingStockItem) {
-      await fetch(`/api/stock/${editingStockItem.id}`, {
+      setStock(prev => prev.map(item => item.id === editingStockItem.id ? { ...item, ...stockItem } : item));
+      fetch(`/api/stock/${editingStockItem.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(stockItem)
-      });
+      }).catch(() => {});
     } else {
-      await fetch('/api/stock', {
+      const newItem = {
+        id: `STK-${100 + stock.length + 1}`,
+        status: stockItem.quantity > (stockItem.reorderLevel || 20) ? 'In Stock' : stockItem.quantity > 0 ? 'Low Stock' : 'Out of Stock',
+        ...stockItem
+      };
+      setStock(prev => [newItem, ...prev]);
+      fetch('/api/stock', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(stockItem)
-      });
+        body: JSON.stringify(newItem)
+      }).catch(() => {});
     }
-    fetchAllData();
   };
 
-  const handleAdjustStock = async (id, amount) => {
-    await fetch(`/api/stock/${id}/adjust`, {
+  const handleAdjustStock = (id, amount) => {
+    setStock(prev => prev.map(item => {
+      if (item.id === id) {
+        const newQty = Math.max(0, item.quantity + amount);
+        const newStatus = newQty > (item.reorderLevel || 20) ? 'In Stock' : newQty > 0 ? 'Low Stock' : 'Out of Stock';
+        return { ...item, quantity: newQty, status: newStatus };
+      }
+      return item;
+    }));
+    fetch(`/api/stock/${id}/adjust`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ amount })
-    });
-    fetchAllData();
+    }).catch(() => {});
   };
 
-  const handleDeleteStock = async (id) => {
+  const handleDeleteStock = (id) => {
     if (window.confirm('Delete this stock item?')) {
-      await fetch(`/api/stock/${id}`, { method: 'DELETE' });
-      fetchAllData();
+      setStock(prev => prev.filter(item => item.id !== id));
+      fetch(`/api/stock/${id}`, { method: 'DELETE' }).catch(() => {});
     }
   };
 
   // Product Handlers
-  const handleSaveProduct = async (productItem) => {
+  const handleSaveProduct = (productItem) => {
     if (editingProductItem) {
-      await fetch(`/api/products/${editingProductItem.id}`, {
+      setProducts(prev => prev.map(item => item.id === editingProductItem.id ? { ...item, ...productItem } : item));
+      fetch(`/api/products/${editingProductItem.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(productItem)
-      });
+      }).catch(() => {});
     } else {
-      await fetch('/api/products', {
+      const newItem = {
+        id: `PROD-00${products.length + 1}`,
+        status: 'In Stock',
+        image: productItem.image || 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600&auto=format&fit=crop&q=80',
+        ...productItem
+      };
+      setProducts(prev => [newItem, ...prev]);
+      fetch('/api/products', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(productItem)
-      });
+        body: JSON.stringify(newItem)
+      }).catch(() => {});
     }
-    fetchAllData();
   };
 
-  const handleDeleteProduct = async (id) => {
+  const handleDeleteProduct = (id) => {
     if (window.confirm('Delete this product from catalog?')) {
-      await fetch(`/api/products/${id}`, { method: 'DELETE' });
-      fetchAllData();
+      setProducts(prev => prev.filter(item => item.id !== id));
+      fetch(`/api/products/${id}`, { method: 'DELETE' }).catch(() => {});
     }
   };
 
   // Customer Handlers
-  const handleSaveCustomer = async (custItem) => {
+  const handleSaveCustomer = (custItem) => {
     if (editingCustomerItem) {
-      await fetch(`/api/customers/${editingCustomerItem.id}`, {
+      setCustomers(prev => prev.map(item => item.id === editingCustomerItem.id ? { ...item, ...custItem } : item));
+      fetch(`/api/customers/${editingCustomerItem.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(custItem)
-      });
+      }).catch(() => {});
     } else {
-      await fetch('/api/customers', {
+      const newItem = {
+        id: `CUST-50${customers.length + 1}`,
+        status: 'New',
+        totalOrders: 0,
+        totalSpent: 0,
+        avatar: custItem.name ? custItem.name.substring(0, 2).toUpperCase() : 'CS',
+        ...custItem
+      };
+      setCustomers(prev => [newItem, ...prev]);
+      fetch('/api/customers', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(custItem)
-      });
+        body: JSON.stringify(newItem)
+      }).catch(() => {});
     }
-    fetchAllData();
   };
 
-  const handleDeleteCustomer = async (id) => {
+  const handleDeleteCustomer = (id) => {
     if (window.confirm('Delete customer record?')) {
-      await fetch(`/api/customers/${id}`, { method: 'DELETE' });
-      fetchAllData();
+      setCustomers(prev => prev.filter(item => item.id !== id));
+      fetch(`/api/customers/${id}`, { method: 'DELETE' }).catch(() => {});
     }
   };
 
   // Stitching Order Handlers
-  const handleCreateStitchingOrder = async (stitchItem) => {
-    await fetch('/api/stitching', {
+  const handleCreateStitchingOrder = (stitchItem) => {
+    const newItem = {
+      id: `STITCH-100${stitchingOrders.length + 1}`,
+      orderDate: new Date().toISOString().split('T')[0],
+      status: 'PENDING',
+      priority: stitchItem.priority || 'Normal',
+      ...stitchItem
+    };
+    setStitchingOrders(prev => [newItem, ...prev]);
+    setStats(prev => prev ? {
+      ...prev,
+      kpis: {
+        ...prev.kpis,
+        pendingStitching: prev.kpis.pendingStitching + 1
+      }
+    } : prev);
+    fetch('/api/stitching', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(stitchItem)
-    });
-    fetchAllData();
+      body: JSON.stringify(newItem)
+    }).catch(() => {});
   };
 
-  const handleUpdateStitchingStatus = async (id, status) => {
-    await fetch(`/api/stitching/${id}/status`, {
+  const handleUpdateStitchingStatus = (id, newStatus) => {
+    setStitchingOrders(prev => {
+      const updated = prev.map(item => item.id === id ? { ...item, status: newStatus } : item);
+      const pending = updated.filter(o => o.status !== 'COMPLETED').length;
+      const completed = updated.filter(o => o.status === 'COMPLETED').length;
+      setStats(sPrev => sPrev ? {
+        ...sPrev,
+        kpis: {
+          ...sPrev.kpis,
+          pendingStitching: pending,
+          completedStitching: completed
+        }
+      } : sPrev);
+      return updated;
+    });
+
+    fetch(`/api/stitching/${id}/status`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status })
-    });
-    fetchAllData();
+      body: JSON.stringify({ status: newStatus })
+    }).catch(() => {});
   };
 
   // Sales Order Handlers
-  const handleCreateOrder = async (orderItem) => {
-    await fetch('/api/orders', {
+  const handleCreateOrder = (orderItem) => {
+    const newItem = {
+      id: `ORD-880${orders.length + 1}`,
+      orderDate: new Date().toISOString().split('T')[0],
+      orderStatus: 'Processing',
+      paymentStatus: 'Paid',
+      ...orderItem
+    };
+    setOrders(prev => [newItem, ...prev]);
+    fetch('/api/orders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(orderItem)
-    });
-    fetchAllData();
+      body: JSON.stringify(newItem)
+    }).catch(() => {});
   };
 
-  const handleUpdateOrderStatus = async (id, orderStatus) => {
-    await fetch(`/api/orders/${id}/status`, {
+  const handleUpdateOrderStatus = (id, newOrderStatus) => {
+    setOrders(prev => prev.map(item => item.id === id ? { ...item, orderStatus: newOrderStatus } : item));
+    fetch(`/api/orders/${id}/status`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ orderStatus })
-    });
-    fetchAllData();
+      body: JSON.stringify({ orderStatus: newOrderStatus })
+    }).catch(() => {});
   };
 
   // Role Auth Handlers
