@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function PageHeader({ title, subtitle, icon: Icon, badgeText, actionButton }) {
   return (
-    <div className="relative rounded-2xl bg-gradient-to-r from-[#FFFFFF] via-[#FFFDF9] to-[#FAF8F5] p-5 lg:p-6 text-stone-900 border-2 border-amber-400/80 shadow-[0_10px_30px_-5px_rgba(217,119,6,0.25),0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden animate-in fade-in duration-300">
+    <div className="relative rounded-2xl bg-gradient-to-r from-white/95 via-[#FFFDF9]/90 to-white/95 backdrop-blur-xl p-5 lg:p-6 text-stone-900 border-2 border-amber-400/80 shadow-[0_10px_30px_-5px_rgba(217,119,6,0.25),0_2px_8px_rgba(0,0,0,0.08)] overflow-hidden animate-in fade-in duration-300">
       {/* Top Shimmering Metallic Gold Ray */}
       <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500 shadow-sm" />
 

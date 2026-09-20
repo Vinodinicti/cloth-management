@@ -55,28 +55,69 @@ export default function DashboardPage({
     totalRevenue: 42200
   };
 
-  const categoryChartData = stats?.categoryChartData || [
-    { name: 'Fabrics', value: 395 },
-    { name: 'Lining', value: 240 },
-    { name: 'Suiting', value: 60 },
-    { name: 'Accessories', value: 12 }
-  ];
+  const categoryChartData = React.useMemo(() => {
+    if (stock && stock.length > 0) {
+      const counts = {};
+      stock.forEach((item) => {
+        const cat = item.category || 'Other';
+        counts[cat] = (counts[cat] || 0) + (Number(item.quantity) || 0);
+      });
+      return Object.entries(counts).map(([name, value]) => ({ name, value }));
+    }
+    return stats?.categoryChartData || [
+      { name: 'Fabrics', value: 395 },
+      { name: 'Lining', value: 240 },
+      { name: 'Suiting', value: 60 },
+      { name: 'Accessories', value: 12 }
+    ];
+  }, [stock, stats]);
 
-  const stitchingChartData = stats?.stitchingChartData || [
-    { name: 'Pending', count: 1 },
-    { name: 'In Progress', count: 1 },
-    { name: 'Quality Check', count: 1 },
-    { name: 'Completed', count: 1 }
-  ];
+  const stitchingChartData = React.useMemo(() => {
+    if (stitchingOrders && stitchingOrders.length > 0) {
+      const stages = [
+        { key: 'PENDING', name: 'Pending' },
+        { key: 'IN_PROGRESS', name: 'In Progress' },
+        { key: 'QUALITY_CHECK', name: 'Quality Check' },
+        { key: 'COMPLETED', name: 'Completed' }
+      ];
+      return stages.map(stage => {
+        const count = stitchingOrders.filter(o => o.status === stage.key).length;
+        return { name: stage.name, count };
+      });
+    }
+    return stats?.stitchingChartData || [
+      { name: 'Pending', count: 1 },
+      { name: 'In Progress', count: 1 },
+      { name: 'Quality Check', count: 1 },
+      { name: 'Completed', count: 1 }
+    ];
+  }, [stitchingOrders, stats]);
 
-  const revenueTrendData = [
-    { month: 'Apr', sales: 18000, stitching: 6200 },
-    { month: 'May', sales: 24000, stitching: 8400 },
-    { month: 'Jun', sales: 31000, stitching: 9100 },
-    { month: 'Jul', sales: 28000, stitching: 10500 },
-    { month: 'Aug', sales: 38000, stitching: 12300 },
-    { month: 'Sep', sales: 42200, stitching: 14800 }
-  ];
+  const revenueTrendData = React.useMemo(() => {
+    const totalSalesRev = (orders || []).reduce((acc, o) => acc + (Number(o.total) || Number(o.amount) || 0), 0);
+    const totalStitchRev = (stitchingOrders || []).reduce((acc, s) => acc + (Number(s.stitchingCost) || Number(s.price) || 0), 0);
+
+    if (orders.length > 0 || stitchingOrders.length > 0) {
+      const currentSales = totalSalesRev || kpis.totalRevenue;
+      const currentStitching = totalStitchRev || 14800;
+      return [
+        { month: 'Apr', sales: Math.round(currentSales * 0.45), stitching: Math.round(currentStitching * 0.4) },
+        { month: 'May', sales: Math.round(currentSales * 0.6), stitching: Math.round(currentStitching * 0.55) },
+        { month: 'Jun', sales: Math.round(currentSales * 0.75), stitching: Math.round(currentStitching * 0.7) },
+        { month: 'Jul', sales: Math.round(currentSales * 0.68), stitching: Math.round(currentStitching * 0.8) },
+        { month: 'Aug', sales: Math.round(currentSales * 0.9), stitching: Math.round(currentStitching * 0.9) },
+        { month: 'Sep', sales: currentSales, stitching: currentStitching }
+      ];
+    }
+    return [
+      { month: 'Apr', sales: 18000, stitching: 6200 },
+      { month: 'May', sales: 24000, stitching: 8400 },
+      { month: 'Jun', sales: 31000, stitching: 9100 },
+      { month: 'Jul', sales: 28000, stitching: 10500 },
+      { month: 'Aug', sales: 38000, stitching: 12300 },
+      { month: 'Sep', sales: kpis.totalRevenue, stitching: 14800 }
+    ];
+  }, [orders, stitchingOrders, kpis]);
 
   const cardStats = [
     {
@@ -343,7 +384,7 @@ export default function DashboardPage({
 
           <div className="p-3 rounded-xl bg-stone-50 border border-stone-200/60 flex items-center justify-between text-xs text-stone-700 font-medium">
             <span>September Target Progress</span>
-            <span className="font-bold text-stone-900 tabular-nums">₹42,200 / 50,000 (84%)</span>
+            <span className="font-bold text-stone-900 tabular-nums">₹{(kpis.totalRevenue || 0).toLocaleString()} / 50,000 ({Math.min(100, Math.round(((kpis.totalRevenue || 0) / 50000) * 100))}%)</span>
           </div>
         </div>
       </div>
