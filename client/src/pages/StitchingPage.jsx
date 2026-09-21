@@ -222,93 +222,94 @@ export default function StitchingPage({
           {columns.map((col) => {
             const colOrders = filteredOrders.filter(o => o.status === col.id);
             return (
-              <div key={col.id} className="rounded-2xl bg-stone-100/70 border border-stone-200/80 p-3.5 space-y-3 min-h-[520px]">
+              <div key={col.id} className="rounded-2xl bg-stone-100/70 border border-stone-200/80 p-2 sm:p-3.5 space-y-2.5 sm:space-y-3 min-h-[520px] min-w-0 overflow-hidden">
                 {/* Column Header */}
-                <div className={`px-3 py-2 rounded-xl border ${col.badgeClass} flex items-center justify-between shadow-xs`}>
-                  <div className="flex items-center gap-2">
-                    <span className={`w-2 h-2 rounded-full ${col.dotColor}`} />
-                    <h3 className="font-semibold text-xs uppercase tracking-wider">{col.title}</h3>
+                <div className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-xl border ${col.badgeClass} flex items-center justify-between gap-1 shadow-xs min-w-0`}>
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className={`w-2 h-2 rounded-full shrink-0 ${col.dotColor}`} />
+                    <h3 className="font-extrabold text-[10px] sm:text-xs uppercase tracking-wider truncate">{col.title}</h3>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full bg-white/90 text-stone-800 font-semibold text-xs border border-stone-200/60 tabular-nums">
+                  <span className="px-1.5 sm:px-2 py-0.5 rounded-full bg-white/90 text-stone-800 font-extrabold text-[10px] sm:text-xs border border-stone-200/60 tabular-nums shrink-0">
                     {colOrders.length}
                   </span>
                 </div>
 
                 {/* Order Cards */}
-                <div className="space-y-3">
+                <div className="space-y-2.5 sm:space-y-3">
                   {colOrders.length === 0 ? (
-                    <div className="p-6 text-center rounded-xl border border-dashed border-stone-300/80 bg-white/50 text-xs text-stone-400">
+                    <div className="p-4 sm:p-6 text-center rounded-xl border border-dashed border-stone-300/80 bg-white/50 text-xs text-stone-400">
                       No orders in this stage
                     </div>
                   ) : (
                     colOrders.map((order) => (
                       <div
                         key={order.id}
-                        className="stitching-card-workshop space-y-3 group"
+                        className="stitching-card-workshop p-2 sm:p-4 space-y-2.5 sm:space-y-3 group min-w-0 overflow-hidden"
                       >
                         {/* Top Info */}
-                        <div className="flex items-start justify-between gap-2">
-                          <div>
-                            <span className="text-[11px] font-medium text-stone-400 block font-mono">{order.id}</span>
-                            <h4 className="font-semibold text-stone-900 text-sm group-hover:text-rose-900 transition-colors">
+                        <div className="flex items-start justify-between gap-1 min-w-0">
+                          <div className="min-w-0 flex-1">
+                            <span className="text-[10px] sm:text-[11px] font-medium text-stone-400 block font-mono truncate">{order.id}</span>
+                            <h4 className="font-extrabold text-stone-900 text-xs sm:text-sm group-hover:text-rose-900 transition-colors truncate">
                               {order.customerName}
                             </h4>
                           </div>
 
                           {order.priority?.includes('Rush') && (
-                            <span className="px-2 py-0.5 rounded-full bg-rose-50 text-rose-800 border border-rose-200 font-semibold text-[10px] tracking-wide">
+                            <span className="px-1.5 sm:px-2 py-0.5 rounded-full bg-rose-50 text-rose-800 border border-rose-200 font-black text-[9px] sm:text-[10px] tracking-wide shrink-0">
                               RUSH
                             </span>
                           )}
                         </div>
 
                         {/* Clothing Type */}
-                        <div className="p-2.5 rounded-lg bg-stone-50 border border-stone-100 space-y-0.5">
-                          <p className="text-xs font-semibold text-stone-800">{order.clothingType}</p>
-                          <p className="text-xs text-stone-500 truncate">{order.requirements || 'Standard tailoring requirements'}</p>
+                        <div className="p-2 sm:p-2.5 rounded-lg bg-stone-50 border border-stone-100 space-y-0.5 min-w-0">
+                          <p className="text-[11px] sm:text-xs font-extrabold text-stone-800 truncate">{order.clothingType}</p>
+                          <p className="text-[10px] sm:text-xs text-stone-500 truncate">{order.requirements || 'Standard tailoring'}</p>
                         </div>
 
                         {/* Tailor & Delivery Info */}
-                        <div className="space-y-1 text-xs text-stone-600">
-                          <div className="flex items-center justify-between">
-                            <span className="flex items-center gap-1.5 text-stone-500">
-                              <UserCheck className="w-3.5 h-3.5 text-stone-400" />
-                              Tailor:
+                        <div className="space-y-1 text-[10px] sm:text-xs text-stone-600 min-w-0">
+                          <div className="flex items-center justify-between gap-1 min-w-0">
+                            <span className="flex items-center gap-1 text-stone-500 shrink-0">
+                              <UserCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-stone-400" />
+                              <span className="hidden sm:inline">Tailor:</span>
                             </span>
-                            <strong className="text-stone-800 font-medium">{order.assignedTailor || 'Unassigned'}</strong>
+                            <strong className="text-stone-800 font-bold truncate text-right">{order.assignedTailor || 'Unassigned'}</strong>
                           </div>
 
-                          <div className="flex items-center justify-between">
-                            <span className="flex items-center gap-1.5 text-stone-500">
-                              <Calendar className="w-3.5 h-3.5 text-stone-400" />
-                              Delivery:
+                          <div className="flex items-center justify-between gap-1 min-w-0">
+                            <span className="flex items-center gap-1 text-stone-500 shrink-0">
+                              <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-stone-400" />
+                              <span className="hidden sm:inline">Delivery:</span>
                             </span>
-                            <strong className="text-stone-800 font-medium">{order.targetDelivery || order.expectedDelivery || 'Standard'}</strong>
+                            <strong className="text-stone-800 font-bold truncate text-right">{order.targetDelivery || order.expectedDelivery || 'Standard'}</strong>
                           </div>
                         </div>
 
                         {/* Action Controls & Status Advance */}
-                        <div className="pt-2.5 border-t border-stone-100 flex items-center justify-between">
+                        <div className="pt-2 sm:pt-2.5 border-t border-stone-100 flex items-center justify-between gap-1 min-w-0">
                           <button
                             onClick={() => setSelectedOrderForPrint(order)}
-                            className="p-1.5 rounded-lg hover:bg-stone-100 text-stone-600 hover:text-stone-900 text-xs font-medium flex items-center gap-1 transition-colors"
+                            className="p-1 sm:p-1.5 rounded-lg hover:bg-stone-100 text-stone-600 hover:text-stone-900 text-[10px] sm:text-xs font-medium flex items-center gap-1 transition-colors shrink-0"
                             title="Print Tailor Sheet"
                           >
-                            <Printer className="w-3.5 h-3.5 text-stone-500" />
-                            <span>Sheet</span>
+                            <Printer className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-stone-500" />
+                            <span className="hidden sm:inline">Sheet</span>
+                            <span className="sm:hidden text-[10px] font-extrabold">Sheet</span>
                           </button>
 
-                          <div className="flex items-center gap-1">
+                          <div className="flex items-center gap-1 shrink-0">
                             {col.id !== 'PENDING' && (
                               <button
                                 onClick={() => {
                                   const prev = col.id === 'COMPLETED' ? 'QUALITY CHECK' : col.id === 'QUALITY CHECK' ? 'IN PROGRESS' : 'PENDING';
                                   handleStatusMove(order.id, prev);
                                 }}
-                                className="p-1.5 rounded-lg border border-stone-200 hover:bg-stone-100 text-xs font-medium text-stone-700 transition-colors flex items-center"
+                                className="p-1 sm:p-1.5 rounded-lg border border-stone-200 hover:bg-stone-100 text-[10px] sm:text-xs font-medium text-stone-700 transition-colors flex items-center shrink-0"
                                 title="Move Previous Stage"
                               >
-                                <ArrowLeft className="w-3.5 h-3.5" />
+                                <ArrowLeft className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                               </button>
                             )}
 
@@ -318,7 +319,7 @@ export default function StitchingPage({
                                   const next = col.id === 'PENDING' ? 'IN PROGRESS' : col.id === 'IN PROGRESS' ? 'QUALITY CHECK' : 'COMPLETED';
                                   handleStatusMove(order.id, next);
                                 }}
-                                className="px-2.5 py-1 rounded-lg bg-rose-900 hover:bg-rose-950 text-white text-xs font-medium transition-colors shadow-xs flex items-center gap-1"
+                                className="px-2 sm:px-2.5 py-1 rounded-lg bg-rose-900 hover:bg-rose-950 text-white text-[10px] sm:text-xs font-bold transition-colors shadow-2xs flex items-center gap-1 shrink-0"
                               >
                                 <span>Next</span>
                                 <ArrowRight className="w-3 h-3" />

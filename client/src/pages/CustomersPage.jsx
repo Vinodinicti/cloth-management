@@ -194,29 +194,29 @@ export default function CustomersPage({
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
           {filteredCustomers.map((cust) => (
             <div
               key={cust.id}
-              className="customer-card-luxury p-3 sm:p-5 flex flex-col justify-between group cursor-pointer"
+              className="customer-card-luxury p-2.5 sm:p-5 flex flex-col justify-between group cursor-pointer min-w-0 overflow-hidden"
               onClick={() => setSelectedCustomer(cust)}
             >
-              <div>
+              <div className="min-w-0">
                 {/* Card Top */}
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-lg bg-rose-900 text-amber-200 font-semibold text-sm flex items-center justify-center shadow-sm shrink-0">
+                <div className="flex items-start justify-between gap-1 min-w-0">
+                  <div className="flex items-center gap-1.5 sm:gap-3 min-w-0 flex-1">
+                    <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg bg-rose-900 text-amber-200 font-extrabold text-xs sm:text-sm flex items-center justify-center shadow-xs shrink-0">
                       {cust.avatar || cust.name?.substring(0, 2).toUpperCase()}
                     </div>
-                    <div>
-                      <h3 className="font-heading font-semibold text-stone-900 text-base group-hover:text-rose-900 transition-colors">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-heading font-extrabold text-stone-900 text-xs sm:text-base leading-tight group-hover:text-rose-900 transition-colors truncate">
                         {cust.name}
                       </h3>
-                      <p className="text-[11px] text-stone-500 font-normal">ID: {cust.id}</p>
+                      <p className="text-[9px] sm:text-[11px] text-stone-500 font-normal truncate">ID: {cust.id}</p>
                     </div>
                   </div>
 
-                  <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${
+                  <span className={`px-1.5 sm:px-2.5 py-0.5 rounded-full text-[9px] sm:text-[11px] font-extrabold border shrink-0 ${
                     cust.status === 'VIP' ? 'bg-amber-50 text-amber-900 border-amber-200' : 'bg-stone-100 text-stone-700 border-stone-200'
                   }`}>
                     {cust.status || 'Regular'}
@@ -224,24 +224,25 @@ export default function CustomersPage({
                 </div>
 
                 {/* Contact Info */}
-                <div className="mt-4 space-y-1.5 text-xs text-stone-700">
-                  <div className="flex items-center gap-2">
-                    <Phone className="w-3.5 h-3.5 text-stone-400" />
-                    <span>{cust.phone}</span>
+                <div className="mt-2.5 sm:mt-4 space-y-1 sm:space-y-1.5 text-[10px] sm:text-xs text-stone-700 min-w-0">
+                  <div className="flex items-center gap-1 sm:gap-2 min-w-0">
+                    <Phone className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-stone-400 shrink-0" />
+                    <span className="truncate">{cust.phone}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-3.5 h-3.5 text-stone-400" />
+                  <div className="flex items-center gap-1 sm:gap-2 min-w-0">
+                    <Mail className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-stone-400 shrink-0" />
                     <span className="truncate">{cust.email}</span>
                   </div>
                 </div>
 
                 {/* Measurement Preview Pill */}
-                <div className="mt-4 p-2.5 rounded-lg bg-stone-50 border border-stone-100 flex items-center justify-between text-xs text-stone-700">
-                  <div className="flex items-center gap-2">
-                    <Ruler className="w-4 h-4 text-rose-800" />
-                    <span>Measurements Saved</span>
+                <div className="mt-2.5 sm:mt-4 p-1.5 sm:p-2.5 rounded-lg bg-stone-50 border border-stone-100 flex items-center justify-between gap-1 text-[10px] sm:text-xs text-stone-700 min-w-0">
+                  <div className="flex items-center gap-1 min-w-0 truncate">
+                    <Ruler className="w-3 h-3 sm:w-4 sm:h-4 text-rose-800 shrink-0" />
+                    <span className="truncate hidden sm:inline">Measurements Saved</span>
+                    <span className="truncate sm:hidden">Fit Saved</span>
                   </div>
-                  <span className={`text-[11px] font-medium px-2 py-0.5 rounded border ${
+                  <span className={`text-[9px] sm:text-[11px] font-semibold px-1.5 py-0.5 rounded border shrink-0 ${
                     cust.measurements ? 'bg-rose-50 text-rose-900 border-rose-200' : 'bg-stone-100 text-stone-500 border-stone-200'
                   }`}>
                     {cust.measurements ? 'Active' : 'Pending'}
@@ -250,17 +251,17 @@ export default function CustomersPage({
               </div>
 
               {/* Bottom Actions */}
-              <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] text-stone-400 font-semibold block uppercase tracking-wider">Total Spent</span>
-                  <span className="font-heading text-sm font-semibold text-stone-900 tabular-nums">₹{(cust.totalSpent || 0).toLocaleString()}</span>
+              <div className="mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-stone-100 flex items-center justify-between gap-1 min-w-0">
+                <div className="min-w-0">
+                  <span className="text-[8px] sm:text-[10px] text-stone-400 font-semibold block uppercase tracking-wider truncate">Total Spent</span>
+                  <span className="font-heading text-xs sm:text-sm font-black text-stone-900 tabular-nums truncate block">₹{(cust.totalSpent || 0).toLocaleString()}</span>
                 </div>
 
-                <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                <div className="flex items-center gap-0.5 sm:gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
                   <button
                     onClick={canEditCustomers ? () => onEditCustomer(cust) : undefined}
                     disabled={!canEditCustomers}
-                    className={`p-1.5 rounded transition-colors ${
+                    className={`p-1 rounded transition-colors ${
                       canEditCustomers ? 'hover:bg-stone-100 text-stone-600 cursor-pointer' : 'text-stone-300 cursor-not-allowed opacity-50'
                     }`}
                     title={canEditCustomers ? "Edit Customer Profile" : "Restricted to Store Manager / Admin"}
@@ -270,7 +271,7 @@ export default function CustomersPage({
                   <button
                     onClick={canEditCustomers ? () => onDeleteCustomer(cust.id) : undefined}
                     disabled={!canEditCustomers}
-                    className={`p-1.5 rounded transition-colors ${
+                    className={`p-1 rounded transition-colors ${
                       canEditCustomers ? 'hover:bg-rose-50 text-rose-700 cursor-pointer' : 'text-stone-300 cursor-not-allowed opacity-50'
                     }`}
                     title={canEditCustomers ? "Delete Customer Profile" : "Restricted to Store Manager / Admin"}

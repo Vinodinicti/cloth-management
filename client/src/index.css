@@ -366,6 +366,15 @@
   overflow: hidden;
 }
 
+@media (max-width: 639px) {
+  .stitching-card-workshop {
+    padding: 0.65rem !important;
+  }
+  .customer-card-luxury {
+    padding: 0.65rem !important;
+  }
+}
+
 .customer-card-luxury::before {
   content: '';
   position: absolute;
